@@ -2,7 +2,7 @@
 <center>A zz open source algorithms library.</center>
 <center>made by B17010918张政</center>
 
-![量子猫](https://zzrtbf.github.io/images/Qcat.jpg)
+<center>![量子猫](https://zzrtbf.github.io/images/Qcat.jpg)</center>
 ## Features
 * Made by Python, easy to use
 * Great code structure
@@ -108,3 +108,8 @@ def output_result(self):
         self.output_result()
         return self.g_best_pos, self.g_best_fit_value
 ```
+
+---
+
+## 假条
+<center> ![假条](https://zzrtbf.github.io/images/jiatiao.jpg) </center>
