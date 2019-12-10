@@ -1,15 +1,12 @@
 # <center>zz_AlgLib</center>
-
-<center><font size=5>A zz open source algorithms library.</font></center>
-</br>
+<center>A zz open source algorithms library.</center>
 <center>made by B17010918张政</center>
-
 
 ## Features
 * Made by Python, easy to use
 * Great code structure
 * Collective intelligent algorithms
-</br>
+
 
 ## Class Particles
 ```
@@ -110,5 +107,3 @@ def output_result(self):
         self.output_result()
         return self.g_best_pos, self.g_best_fit_value
 ```
-
-</br>
