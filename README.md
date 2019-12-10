@@ -2,7 +2,9 @@
 <center>A zz open source algorithms library.</center>
 <center>made by B17010918张政</center>
 
-<div align=center>![量子猫](https://zzrtbf.github.io/images/Qcat.jpg)</div>
+<center><p>![量子猫](https://zzrtbf.github.io/images/Qcat.jpg)</p></center>
+
+
 ## Features
 * Made by Python, easy to use
 * Great code structure
@@ -112,4 +114,4 @@ def output_result(self):
 ---
 
 ## 假条
-<div align=center>![假条](https://zzrtbf.github.io/images/jiatiao.jpg)</div>
+<center><p>![假条](https://zzrtbf.github.io/images/jiatiao.jpg)</p></center>
