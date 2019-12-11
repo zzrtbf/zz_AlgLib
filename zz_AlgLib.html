@@ -1,0 +1,168 @@
+<!-- B17010918张政 -->
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>zz_AlgLib | A zz open source algorithms library.</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="zz_AlgLib" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A zz open source algorithms library." />
+<meta property="og:description" content="A zz open source algorithms library." />
+<link rel="canonical" href="https://zzrtbf.github.io/zz_AlgLib/" />
+<meta property="og:url" content="https://zzrtbf.github.io/zz_AlgLib/" />
+<meta property="og:site_name" content="zz_AlgLib" />
+<script type="application/ld+json">
+{"@type":"WebSite","url":"https://zzrtbf.github.io/zz_AlgLib/","name":"zz_AlgLib","headline":"zz_AlgLib","description":"A zz open source algorithms library.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="/zz_AlgLib/assets/css/style.css?v=337c78e4e46a70c379174ab158471ee65bc264f3">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">zz_AlgLib</h1>
+      <h2 class="project-tagline">A zz open source algorithms library.</h2>
+      
+        <a href="https://github.com/zzrtbf/zz_AlgLib" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="zz_alglib"><center>zz_AlgLib</center></h1>
+<center>A zz open source algorithms library.</center>
+<center>made by B17010918张政</center>
+
+<div style="align: center">
+<img src="https://zzrtbf.github.io/images/Qcat.jpg" />
+</div>
+
+<h2 id="features">Features</h2>
+<ul>
+  <li>Made by Python, easy to use</li>
+  <li>Great code structure</li>
+  <li>Collective intelligent algorithms</li>
+</ul>
+
+<h2 id="class-particles">Class Particles</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Particles(object):
+    def __init__(self, dimension): 
+        self.pos = np.empty(dimension)  # now position
+        self.vel = np.zeros(dimension)  # now velocity
+        self.fit_value = 0 # now fit value
+        self.p_best_pos = np.empty(dimension)   # personal best position
+        self.p_best_fit_value = 0 # personal best fit value
+</code></pre></div></div>
+
+<h2 id="class-pso_alg">Class PSO_ALG</h2>
+<ul>
+  <li>init
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def __init__(self, dimension, fit_func, lower, upper, part_num, max_iter_num, c1, c2, w_ini, w_end):
+      self.dimension = dimension  # The dimension of problems
+      self.fit_func = fit_func  # The function to calculate the fit value of one particle
+      self.lower = lower  # The upper bound and lower bound of the particles
+      self.upper = upper
+      self.part_num = part_num  # The number of particles
+      self.max_iter_num = max_iter_num  # The maximum number of iteration
+      # The variances for calculation
+      self.c1, self.c2, self.w_ini, self.w_end = c1, c2, w_ini, w_end
+        
+      self.now_iter_num = 0  # now iteration number
+      self.g_best_pos = np.empty(dimension)  # global best position
+      self.g_best_fit_value = inf # global best fit value
+</code></pre></div>    </div>
+  </li>
+  <li>init_move
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def init_move(self):
+      self.now_iter_num = 1
+      self.part_list = [Particles(self.dimension)] * self.part_num
+      for part in self.part_list:
+          part.pos = np.random.uniform(self.lower, self.upper)
+          part.fit_value = self.fit_func(part.pos)
+          part.p_best_pos = part.pos
+          part.p_best_fit_value = part.fit_value
+          if part.fit_value &lt; self.g_best_fit_value:
+              self.g_best_fit_value = part.fit_value
+              self.g_best_pos = part.pos
+</code></pre></div>    </div>
+  </li>
+  <li>move_particles
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Movement
+def move_particles(self):
+  # calculate w by LDW(Linearly Dicreasing Weight)
+  w = (self.w_end - self.w_ini)/self.max_iter_num * self.now_iter_num
+  for part in self.part_list:
+      # calculate velocity
+      part.vel = w * part.vel + \
+      self.c1 * np.random.rand() * (part.p_best_pos - part.pos) + \
+      self.c2 * np.random.rand() * (self.g_best_pos - part.pos)
+      # calculate position
+      part.pos = part.pos + part.vel
+</code></pre></div>    </div>
+  </li>
+  <li>cal_fit_value
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Calculate the fit value of each particle
+  def cal_fit_value(self):
+      for part in self.part_list:
+          part.fit_value = self.fit_func(part.pos)
+          # if now value &lt; p_best_value : update information
+          if part.fit_value &lt; part.p_best_fit_value:
+              part.p_best_fit_value = part.fit_value
+              part.p_best_pos = part.pos
+</code></pre></div>    </div>
+  </li>
+  <li>change_global_best_value
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># change the global best fit value
+  def change_global_best_value(self):
+      for part in self.part_list:
+          if part.fit_value &lt; self.g_best_fit_value:
+              self.g_best_fit_value = part.fit_value
+              self.g_best_pos = part.pos
+</code></pre></div>    </div>
+  </li>
+  <li>output_result
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># output the best position and fit value
+def output_result(self):
+  print("The best solution is " + str(self.g_best_pos))
+  print("The best fit value is " + str(self.g_best_fit_value))
+</code></pre></div>    </div>
+  </li>
+  <li>start_evolution
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> # an auto method to run PSO algorithm
+  def start_evolution(self):
+      self.init_move()
+      while (self.now_iter_num &lt;= self.max_iter_num):
+          self.move_particles()
+          self.cal_fit_value()
+          self.change_global_best_value()
+          self.now_iter_num += 1
+      self.output_result()
+      return self.g_best_pos, self.g_best_fit_value
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="假条">假条</h2>
+
+<div style="align: center">
+<img src="https://zzrtbf.github.io/images/jiatiao.jpg" />
+</div>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/zzrtbf/zz_AlgLib">zz_AlgLib</a> is maintained by <a href="https://github.com/zzrtbf">zzrtbf</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>
