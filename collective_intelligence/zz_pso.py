@@ -33,4 +33,3 @@ class PSO_alg(Intell_alg):
         self.now_iter_num += 1
 
 
-

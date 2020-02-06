@@ -16,13 +16,13 @@ class Intell_alg(object):
 
     def __init__(self, prob):
         self.dim = prob.dim         # the dimension of the problem
-        self.pop_size = 4    # the number of candidate 
+        self.pop_size = 12    # the number of candidate 
         self.fit_func = prob.fit_func   # objective function
         self.best_soln = np.zeros(prob.dim) # global best soln
         self.best_fit_value = 0     # global best fit value
 
         self.now_iter_num = 0       # the now iteration number
-        self.max_iter_num = 100    # the max iteration number
+        self.max_iter_num = 1000    # the max iteration number
 
         self.lower = prob.lower     # lower bound 
         self.upper = prob.upper     # upper bound
