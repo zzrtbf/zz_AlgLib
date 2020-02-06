@@ -1,0 +1,36 @@
+from zz_problem import Problem
+from zz_pso import PSO_alg
+
+class Test_prob(Problem):
+
+    def __init__(self):
+        super().__init__()
+        self.dim = 2                # The dimension of the problem
+        self.lower = (-10, -10)     # lower bound (shoule be written by tuple)
+        self.upper = (10, 10)       # upper bound 
+
+    # Objective function
+    # This fuction should be redefined in the practical problem
+    def fit_func(self, soln):
+        fit_value = pow(soln[0], 2) + pow(soln[1], 2)
+        return fit_value
+
+prob = Test_prob()
+alg = PSO_alg(prob)
+
+print("Start thinking")
+
+alg.init_think()
+for i in range(alg.max_iter_num):
+    alg.deduce()
+    alg.conclude()
+
+print("The best solution is " + str(alg.best_soln))
+print("The best fit value is " + str(alg.best_fit_value))
+
+
+
+
+
+
+
