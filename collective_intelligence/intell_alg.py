@@ -71,10 +71,7 @@ class Intell_alg(object):
             cand.best_fit_value = cand.fit_value
         self.best_fit_value = self.pop_list[0].best_fit_value
         self.best_soln = self.pop_list[0].best_soln
-        for cand in self.pop_list:
-            if cand.fit_value < self.best_fit_value:
-                self.best_fit_value = cand.fit_value
-                self.best_soln = cand.soln
+        self.update_global()
 
     # Deduce
     def deduce(self):
