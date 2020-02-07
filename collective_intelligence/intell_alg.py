@@ -6,23 +6,23 @@ from zz_problem import Problem
 class Candidate(object):
     
     def __init__(self, dim): 
-        self.soln = np.zeros(dim)  # now position
-        self.fit_value = 0 # now fit value
-        self.best_soln = np.zeros(dim)   # personal best position
-        self.best_fit_value = 0 # personal best fit value
+        self.soln = np.zeros(dim)       # now position
+        self.fit_value = 0              # now fit value
+        self.best_soln = np.zeros(dim)  # personal best position
+        self.best_fit_value = 0         # personal best fit value
 
 # Intelligent Algorithm Class
 class Intell_alg(object):
 
-    def __init__(self, prob):
-        self.dim = prob.dim         # the dimension of the problem
-        self.pop_size = 12    # the number of candidate 
-        self.fit_func = prob.fit_func   # objective function
+    def __init__(self, prob, pop_size, max_iter):
+        self.dim = prob.dim                 # the dimension of the problem
+        self.pop_size = pop_size            # the number of candidate 
+        self.fit_func = prob.fit_func       # objective function
         self.best_soln = np.zeros(prob.dim) # global best soln
-        self.best_fit_value = 0     # global best fit value
+        self.best_fit_value = 0             # global best fit value
 
-        self.now_iter_num = 0       # the now iteration number
-        self.max_iter_num = 1000    # the max iteration number
+        self.now_iter_num = 0               # the now iteration number
+        self.max_iter_num = max_iter        # the max iteration number
 
         self.lower = prob.lower     # lower bound 
         self.upper = prob.upper     # upper bound
@@ -50,6 +50,15 @@ class Intell_alg(object):
             if cand.best_fit_value < self.best_fit_value:
                 self.best_fit_value = cand.best_fit_value
                 self.best_soln = cand.best_soln
+
+    # bound function
+    def bound(self):
+        for cand in self.pop_list:
+            for i in range(len(cand.soln)):
+                if cand.soln[i] < self.lower[i]:
+                    cand.soln[i] = self.upper[i]
+                if cand.soln[i] > self.upper[i]:
+                    cand.soln[i] = self.lower[i]
 
     # initialize the think process
     def init_think(self):

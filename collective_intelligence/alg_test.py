@@ -1,30 +1,28 @@
 from zz_problem import Problem
 from zz_pso import PSO_alg
 from zz_de import DE_alg
-import math
+from math_test_func import sphere, rastrigin, ackley
 
-def sphere(soln):
-    return sum(pow(soln[i], 2) for i in range(len(soln)))
+dimension = 2           # the dimension of the problem
+lower = (-10, -10)      # lower bound (shoule be written by tuple)
+upper = (10, 10)        # upper bound
+pop_size = 12           # the number of the candidate
+max_iter = 1000         # max iteration number
 
-def rastrigin(soln):
-    return 10*len(soln) + sum(pow(soln[i], 2)-10*math.cos(2*math.pi*soln[i]) for i in range(len(soln)))
 
 class Test_prob(Problem):
 
-    def __init__(self):
-        super().__init__()
-        self.dim = 2                # The dimension of the problem
-        self.lower = (-10, -10)     # lower bound (shoule be written by tuple)
-        self.upper = (10, 10)       # upper bound 
+    def __init__(self, dim, lower, upper):
+        super().__init__(dim, lower, upper)
 
     # Objective function
     # This fuction should be redefined in the practical problem
     def fit_func(self, soln):
-        fit_value = rastrigin(soln)
+        fit_value = ackley(soln)
         return fit_value
 
-prob = Test_prob()
-alg = DE_alg(prob)
+prob = Test_prob(dimension, lower, upper)
+alg = PSO_alg(prob, pop_size, max_iter)
 
 print("Start thinking")
 
