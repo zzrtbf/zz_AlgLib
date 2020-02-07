@@ -12,10 +12,8 @@ class Problem(object):
     # Objective function
     # This fuction should be redefined in the practical problem
     def fit_func(self, soln):
-        fit_value = 0
-        for ans in soln:
-            fit_value = fit_value + ans
-        return fit_value
+        # Sphere function
+        return sum(pow(soln[i], 2) for i in range(len(soln)))
  
 
 

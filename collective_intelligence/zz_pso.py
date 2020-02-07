@@ -1,4 +1,4 @@
-##### Welcome to ZZ PSO Algorithm #####
+##### Welcome to zz PSO Algorithm #####
 
 import numpy as np
 from intell_alg import Candidate, Intell_alg
